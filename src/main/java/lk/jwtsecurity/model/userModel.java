@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
-public class user {
+public class userModel {
 
     @Id
     private ObjectId _id;
@@ -15,7 +15,7 @@ public class user {
     private String password;
     private List<? extends GrantedAuthority> roles;
 
-    public user(ObjectId _id, String username, String password, List<? extends GrantedAuthority> roles) {
+    public userModel(ObjectId _id, String username, String password, List<? extends GrantedAuthority> roles) {
         this._id = _id;
         this.username = username;
         this.password = password;

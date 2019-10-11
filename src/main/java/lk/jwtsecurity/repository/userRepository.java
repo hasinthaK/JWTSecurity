@@ -1,9 +1,9 @@
 package lk.jwtsecurity.repository;
 
-import lk.jwtsecurity.model.user;
+import lk.jwtsecurity.model.userModel;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface userRepository extends MongoRepository<user, String> {
+public interface userRepository extends MongoRepository<userModel, String> {
 
-    user findUserByUsername(String username);
+    userModel findUserByUsername(String username);
 }
