@@ -15,7 +15,6 @@ import java.util.List;
 public class userController {
 
     private userRepository userRepo;
-
     public userController(userRepository userRepo) {
         this.userRepo = userRepo;
     }
