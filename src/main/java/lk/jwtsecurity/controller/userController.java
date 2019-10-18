@@ -26,7 +26,7 @@ public class userController {
     }
 
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public userModel register(@RequestBody @Valid userModel newUser){
+    public userModel register(@RequestBody userModel newUser){
         newUser.set_id(ObjectId.get()); // set new ObjectId to the user
         userRepo.save(newUser);
         System.out.println("New user saved to Database with username -> "+ newUser.getUsername());

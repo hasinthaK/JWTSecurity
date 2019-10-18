@@ -2,10 +2,14 @@ package lk.jwtsecurity.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+@Document("user")
 public class userModel {
 
     @Id
@@ -13,9 +17,10 @@ public class userModel {
 
     private String username;
     private String password;
-    private List<? extends GrantedAuthority> roles;
+//    private List<? extends GrantedAuthority> roles;
+    private String roles;
 
-    public userModel(ObjectId _id, String username, String password, List<? extends GrantedAuthority> roles) {
+    public userModel(ObjectId _id, String username, String password, String roles) {
         this._id = _id;
         this.username = username;
         this.password = password;
@@ -46,11 +51,22 @@ public class userModel {
         this.password = password;
     }
 
-    public List<? extends GrantedAuthority> getRoles() {
-        return roles;
+//    public List<? extends GrantedAuthority> getRoles() {
+//        return roles;
+//    }
+//
+//    public void setRoles(List<? extends GrantedAuthority> roles) {
+//        this.roles = roles;
+//    }
+//
+    public List<String> getRoles(){
+        if(this.roles.length() > 0){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
     }
 
-    public void setRoles(List<? extends GrantedAuthority> roles) {
-        this.roles = roles;
-    }
+    //Only list of strings or list of grantedauthority will work
+    //else roles will not returned by the server
+
 }
