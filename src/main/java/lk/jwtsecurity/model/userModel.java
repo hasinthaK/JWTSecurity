@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 @Document("user")
@@ -19,12 +20,15 @@ public class userModel {
     private String password;
 //    private List<? extends GrantedAuthority> roles;
     private String roles;
+    //////////////////////////////////////////////////////////
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public userModel(ObjectId _id, String username, String password, String roles) {
+    public userModel(ObjectId _id, String username, String password, String roles, Collection authorities) {
         this._id = _id;
         this.username = username;
         this.password = password;
         this.roles = roles;
+        this.authorities = authorities;
     }
 
     public ObjectId get_id() {
@@ -68,5 +72,13 @@ public class userModel {
 
     //Only list of strings or list of grantedauthority will work
     //else roles will not returned by the server
+
+    public Collection<? extends GrantedAuthority>getAuthorities(){
+        return this.authorities;
+    }
+
+    ////////
+    //Try to map userModel to MonogDB
+    // else make use of userDetailsImpl
 
 }

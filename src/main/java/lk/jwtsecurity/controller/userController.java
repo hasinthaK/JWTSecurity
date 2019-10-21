@@ -5,8 +5,6 @@ import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
 import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
