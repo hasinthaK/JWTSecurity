@@ -4,6 +4,7 @@ package lk.jwtsecurity.controller;
 import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,10 +13,8 @@ import java.util.List;
 @CrossOrigin
 public class userController {
 
+    @Autowired
     private userRepository userRepo;
-    public userController(userRepository userRepo) {
-        this.userRepo = userRepo;
-    }
 
     @RequestMapping(value = "getusers", method = RequestMethod.GET)
     public List<userModel> getUsers(){
