@@ -40,7 +40,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/register").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()
-                .and().sessionManagement().disable();
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

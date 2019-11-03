@@ -24,7 +24,7 @@ public class userDetailsServiceImpl implements UserDetailsService {
         userModel user = userRepository.findUserByUsername(s);
 
         if(user == null){
-            log.warn("Incorrect username or password");
+            log.warn("User not found");
             throw new UsernameNotFoundException("User not found");
         }
 
