@@ -4,7 +4,10 @@ package lk.jwtsecurity.controller;
 import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
 import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -13,10 +16,15 @@ import java.util.List;
 @CrossOrigin
 public class userController {
 
+    private static final Logger log = LoggerFactory.getLogger(userController.class);
+
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private userRepository userRepo;
 
-    @RequestMapping(value = "/getusers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getusers", method = RequestMethod.POST)
     public List<userModel> getUsers(){
        return userRepo.findAll();
     }
@@ -24,8 +32,11 @@ public class userController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public userModel register(@RequestBody userModel newUser){
         newUser.set_id(ObjectId.get()); // set new ObjectId to the user
+        String pass = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(pass);
         userRepo.save(newUser);
-        System.out.println("New user saved to Database with username -> "+ newUser.getUsername());
+        //System.out.println("New user saved to Database with username -> "+ newUser.getUsername());
+        log.info("New user saved to Database->", newUser);
         return newUser;
     }
 

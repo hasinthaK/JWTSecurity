@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class securityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -22,34 +22,41 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/users/register").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/users/register").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests().anyRequest().authenticated()
+                .and().httpBasic()
+                .and().sessionManagement().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+//        auth
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(passwordEncoder());
 
-        //auth.authenticationProvider(authProvider());
+        auth.authenticationProvider(authProvider());
     }
 
     @Bean
     BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
-//    DaoAuthenticationProvider authProvider(){
-//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-//        authenticationProvider.setUserDetailsService(this.userDetailsService);
-//        authenticationProvider.setPasswordEncoder(passwordEncoder());
-//
-//        return authenticationProvider;
-//    }
+    @Bean
+    DaoAuthenticationProvider authProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(this.userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return authenticationProvider;
+    }
 
 }
+
+//hasintha 12 round bcrypt hash $2y$12$WvffONmAWGIqgwzZF/3SjuSWsLK5bUt.Qgw7QaRt8728JriJKMBfu
