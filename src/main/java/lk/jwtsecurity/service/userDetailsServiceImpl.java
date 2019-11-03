@@ -4,7 +4,6 @@ import lk.jwtsecurity.model.userDetailsImpl;
 import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -26,7 +26,8 @@ public class userController {
 
     @RequestMapping(value = "/getusers", method = RequestMethod.POST)
     public List<userModel> getUsers(){
-       return userRepo.findAll();
+        log.info("Current saved users returned");
+        return userRepo.findAll();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
