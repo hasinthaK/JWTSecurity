@@ -1,5 +1,6 @@
 package lk.jwtsecurity.service;
 
+import lk.jwtsecurity.model.userDetailsImpl;
 import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class userDetailsServiceImpl implements UserDetailsService {
 ////        }
         //Collection<? extends GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("User"));
 
-
-        return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
+//Spring built in userDetailsImplementation - User
+        //return new User(user.getUsername(), user.getPassword(), user.getAuthorities());
+        return new userDetailsImpl(user);
     }
 }

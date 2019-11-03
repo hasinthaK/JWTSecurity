@@ -19,15 +19,15 @@ public class userModel {
     private String username;
     private String password;
 //    private List<? extends GrantedAuthority> roles;
-    private String roles;
+//    private String roles;
     //////////////////////////////////////////////////////////
     private Collection<? extends GrantedAuthority> authorities;
 
-    public userModel(ObjectId _id, String username, String password, String roles, Collection authorities) {
+    public userModel(ObjectId _id, String username, String password, Collection authorities) {
         this._id = _id;
         this.username = username;
         this.password = password;
-        this.roles = roles;
+//        this.roles = roles;
         this.authorities = authorities;
     }
 
@@ -63,12 +63,12 @@ public class userModel {
 //        this.roles = roles;
 //    }
 //
-    public List<String> getRoles(){
-        if(this.roles.length() > 0){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
+//    public List<String> getRoles(){
+//        if(this.roles.length() > 0){
+//            return Arrays.asList(this.roles.split(","));
+//        }
+//        return new ArrayList<>();
+//    }
 
     //Only list of strings or list of grantedauthority will work
     //else roles will not returned by the server
@@ -76,9 +76,5 @@ public class userModel {
     public Collection<? extends GrantedAuthority>getAuthorities(){
         return this.authorities;
     }
-
-    ////////
-    //Try to map userModel to MonogDB
-    // else make use of userDetailsImpl
 
 }
