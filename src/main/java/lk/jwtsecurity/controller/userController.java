@@ -26,7 +26,7 @@ public class userController {
 
     @RequestMapping(value = "/getusers", method = RequestMethod.POST)
     public List<userModel> getUsers(){
-        log.info("Current saved users returned");
+        log.info("Authentication success, Current saved users returned");
         return userRepo.findAll();
     }
 

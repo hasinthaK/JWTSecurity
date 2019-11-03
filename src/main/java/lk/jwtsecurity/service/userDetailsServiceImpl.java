@@ -3,6 +3,8 @@ package lk.jwtsecurity.service;
 import lk.jwtsecurity.model.userDetailsImpl;
 import lk.jwtsecurity.model.userModel;
 import lk.jwtsecurity.repository.userRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class userDetailsServiceImpl implements UserDetailsService {
 
+    public static final Logger log = LoggerFactory.getLogger(userDetailsServiceImpl.class);
+
     @Autowired
     userRepository userRepository;
 
@@ -20,6 +24,7 @@ public class userDetailsServiceImpl implements UserDetailsService {
         userModel user = userRepository.findUserByUsername(s);
 
         if(user == null){
+            log.warn("Incorrect username or password");
             throw new UsernameNotFoundException("User not found");
         }
 
