@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @CrossOrigin
 public class userController {
 
     @Autowired
     private userRepository userRepo;
 
-    @RequestMapping(value = "getusers", method = RequestMethod.GET)
+    @RequestMapping(value = "/getusers", method = RequestMethod.GET)
     public List<userModel> getUsers(){
        return userRepo.findAll();
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public userModel register(@RequestBody userModel newUser){
         newUser.set_id(ObjectId.get()); // set new ObjectId to the user
         userRepo.save(newUser);
