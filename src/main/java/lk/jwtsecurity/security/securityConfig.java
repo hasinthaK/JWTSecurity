@@ -22,25 +22,34 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/users/*").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
+//                .csrf().disable()
+//                .authorizeRequests().anyRequest().authenticated()
+//                .and().formLogin()
+//                .and().sessionManagement().disable();
+
 //                .csrf().disable()
 //                .authorizeRequests()
 //                .antMatchers("/users/register").permitAll()
 //                .anyRequest().authenticated()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and().httpBasic()
-                .and().sessionManagement().disable();
+//                .and().httpBasic()
+//                .and().sessionManagement().disable();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .userDetailsService(userDetailsService)
-//                .passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
 
-        auth.authenticationProvider(authProvider());
+//        auth.authenticationProvider(authProvider());
     }
 
     @Bean

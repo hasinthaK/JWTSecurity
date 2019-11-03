@@ -35,8 +35,8 @@ public class userController {
         String pass = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(pass);
         userRepo.save(newUser);
-        //System.out.println("New user saved to Database with username -> "+ newUser.getUsername());
-        log.info("New user saved to Database->", newUser);
+        String logString = "New user saved to Database with username -> "+ newUser.getUsername();
+        log.info(logString);
         return newUser;
     }
 
