@@ -1,9 +1,13 @@
 package lk.jwtsecurity.security;
 
+import lk.jwtsecurity.filter.JWTAuthenticationFilter;
+import lk.jwtsecurity.filter.JWTAuthorizationFilter;
+import lk.jwtsecurity.repository.userRepository;
 import lk.jwtsecurity.service.userDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,17 +21,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class securityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    userRepository userRepository;
+
+    @Autowired
     userDetailsServiceImpl userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/users/*").permitAll()
-//                .anyRequest().authenticated()
-//                .and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                // add jwt filters (1. authentication, 2. authorization)
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(),  this.userRepository))
+                .authorizeRequests()
+                // configure access rules
+                .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/users/register").permitAll()
+                .anyRequest().authenticated();
 
 
 //                .csrf().disable()
@@ -35,12 +47,12 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 //                .and().formLogin()
 //                .and().sessionManagement().disable();
 
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/users/register").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic()
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/users/register").permitAll()
+//                .anyRequest().authenticated()
+//                .and().httpBasic()
+//                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override

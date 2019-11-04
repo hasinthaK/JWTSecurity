@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,12 +28,12 @@ public class userController {
 
     @RequestMapping(value = "/getusers", method = RequestMethod.POST)
     public List<userModel> getUsers(){
-        log.info("Authentication success, Current saved users returned");
+        log.info("Current saved users returned");
         return userRepo.findAll();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public userModel register(@RequestBody userModel newUser){
+    public userModel register(@RequestBody @Valid userModel newUser){
         newUser.set_id(ObjectId.get()); // set new ObjectId to the user
         String pass = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(pass);
