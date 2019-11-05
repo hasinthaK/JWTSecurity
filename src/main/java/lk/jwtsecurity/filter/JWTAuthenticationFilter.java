@@ -56,8 +56,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + JWTProperties.EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(JWTProperties.SECRET.getBytes()));
 
-        log.info("JWT created and returned -> " + JWTProperties.TOKEN_PREFIX + " " + token);
-        response.addHeader(JWTProperties.HEADER_STRING, JWTProperties.TOKEN_PREFIX + " " + token);
+        log.info("JWT created and returned -> " + JWTProperties.TOKEN_PREFIX + token);
+        response.addHeader(JWTProperties.HEADER_STRING, JWTProperties.TOKEN_PREFIX + token);
 //        response. ("token: " + JWTProperties.TOKEN_PREFIX + " " + token);
 
     }
