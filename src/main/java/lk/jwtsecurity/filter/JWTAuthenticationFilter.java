@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+@CrossOrigin(origins = "http://localhost:4200")
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public static final Logger log = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
     private AuthenticationManager AuthenticationManager;
