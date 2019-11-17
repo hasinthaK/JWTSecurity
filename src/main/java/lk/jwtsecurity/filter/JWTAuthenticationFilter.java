@@ -62,11 +62,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("JWT created and returned -> " + JWTProperties.TOKEN_PREFIX + token);
 
 // add token as json body of the response
-        PrintWriter out = response.getWriter();
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        out.print(JWTProperties.TOKEN_PREFIX + token);
-        out.flush();
+//        PrintWriter out = response.getWriter();
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        out.print(JWTProperties.TOKEN_PREFIX + token);
+//        out.flush();
 
         response.addHeader(JWTProperties.HEADER_STRING, JWTProperties.TOKEN_PREFIX + token);
 //        response. ("token: " + JWTProperties.TOKEN_PREFIX + " " + token);
