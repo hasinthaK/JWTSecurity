@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class userController {
 
     private static final Logger log = LoggerFactory.getLogger(userController.class);

@@ -23,6 +23,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public static final Logger log = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
     private AuthenticationManager AuthenticationManager;
