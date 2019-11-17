@@ -7,6 +7,9 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +44,18 @@ public class userController {
         String logString = "New user saved to Database with username -> "+ newUser.getUsername();
         log.info(logString);
         return newUser;
+    }
+
+    @RequestMapping(value = "/loggeduser", method = RequestMethod.POST)
+    @ResponseBody
+    public String getLoggedinUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(!(auth instanceof AnonymousAuthenticationToken)){
+            String username = auth.getName();
+            return username;
+        }
+
+        return null;
     }
 
 }
