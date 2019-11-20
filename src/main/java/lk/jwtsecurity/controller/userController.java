@@ -61,5 +61,10 @@ public class userController {
         return null;
     }
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test()){
+        return "Hello from API";
+    }
+
 
 }
