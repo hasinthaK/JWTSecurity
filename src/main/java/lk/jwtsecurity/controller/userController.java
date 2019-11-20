@@ -62,6 +62,7 @@ public class userController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
     public String test()){
         return "Hello from API";
     }
