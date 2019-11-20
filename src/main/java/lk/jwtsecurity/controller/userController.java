@@ -61,11 +61,11 @@ public class userController {
         return null;
     }
 
-    // @RequestMapping(value = "/test", method = RequestMethod.GET)
-    // @ResponseBody
-    // public String test()){
-    //     return "Hello from API";
-    // }
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @ResponseBody
+    public String test()){
+        return "Hello from API";
+    }
 
 
 }
